@@ -1,5 +1,6 @@
 var button = document.getElementById("testButton");
 var button2 = document.getElementById("button2");
+var langButton = document.getElementById("lang");
 
 async function getSelectionText() {
   chrome.tabs.executeScript( {
@@ -48,3 +49,25 @@ button2.addEventListener("click", function(){
   getSelectionText();
   abcFunction();
 })
+
+function myFunction2() {
+  var x = document.getElementById("lang");
+  var spanText = document.getElementById("spanText");
+  var button = document.getElementById("button2");
+  var speaker = document.getElementById("speaker");
+  if (x.innerHTML === "🇪🇪") {
+    x.innerHTML = "🇬🇧";
+    spanText.innerHTML = "Selected text:";
+    button.innerHTML = "BUTTON";
+    button.style.color = "#FFFFFF";
+    speaker.innerHTML = "Speaker:"
+  } else {
+    x.innerHTML = "🇪🇪";
+    spanText.innerHTML = "Selekteeritud tekst:";
+    button.innerHTML = "NUPP";
+    button.style.color = "#FFFFFF";
+    speaker.innerHTML = "Kõneleja:"
+  }
+}
+
+langButton.addEventListener("click", myFunction2);

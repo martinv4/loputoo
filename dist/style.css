@@ -37,3 +37,20 @@
     text-align: center;
     font-weight: bold;
 }
+
+.lang{
+    float: right;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.spanText{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.spanContainer{
+    height: 32px;
+    line-height: 32px;
+}

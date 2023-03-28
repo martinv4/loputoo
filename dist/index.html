@@ -10,8 +10,13 @@
   </head>
   <body class="container">
     <div class="innerContainer">
-      <span class="spanText">Selekteeritud tekst:</span>
-      <div id="testelement2">placeholder</div>
+
+      <div class="spanContainer">
+        <span id="spanText" class="spanText;">Selekteeritud tekst:</span>
+        <span id="lang" class="lang">🇪🇪</span>
+      </div>
+
+      <div id="testelement2">placeholder tekst</div>
 
       <button id="button2" class="button"><span class="buttonText">NUPP</span></button>
 
@@ -20,11 +25,13 @@
       </audio>
 
       <div class="controls">
-        <span>tempo ist mörderisch:</span>
+
+        <span>Tempo:</span>
         <div class="slidecontainer">
           <input type="range" min="0.5" max="2" value="0.75" step="0.25" class="slider" id="testSpeed">
         </div>
-        <span>kõneleja: </span>
+
+        <span id="speaker">Kõneleja: </span>
         <select name="Speaker" id="testSpeaker">
           <option value="albert">Albert</option>
           <option value="mari">Mari</option>
@@ -37,6 +44,7 @@
           <option value="liivika">Liivika</option>
           <option value="vesta">Vesta</option>
         </select>
+
       </div>
       <script src="index.js"></script>
   </body>
