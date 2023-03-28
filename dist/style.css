@@ -42,6 +42,7 @@
     float: right;
     font-size: x-large;
     cursor: pointer;
+    user-select: none;
 }
 
 .spanText{

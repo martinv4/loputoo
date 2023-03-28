@@ -6,8 +6,8 @@ async function getSelectionText() {
   chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
 }, function(selection) {
-    document.getElementById("testelement2").innerHTML = selection[0];
     testText2 = document.getElementById('testelement2').innerHTML;
+    document.getElementById("testelement2").innerHTML = selection[0];
     console.log("test1")
 });
 }
@@ -47,6 +47,10 @@ async function abcFunction(){
 
 button2.addEventListener("click", function(){
   getSelectionText();
+  //pole just parim lahendus, ei tea miks esimene func varem lõpetab
+  setTimeout(function (){
+    abcFunction();
+  }, 1);
   abcFunction();
 })
 
