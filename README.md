@@ -9,3 +9,6 @@ lokaalne paigaldus:
 2. Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
 
 3. Click the **Load unpacked** button and select the extension directory. ( /loputoo/dist ) 
+
+
+Kasutamiseks selekteeri lehel tekst, seejärel ava extensioni aken ülevalt, vajuta sinist nuppu, kuula heli
