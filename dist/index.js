@@ -1,28 +1,31 @@
 var button = document.getElementById("testButton");
 var button2 = document.getElementById("button2");
 var langButton = document.getElementById("lang");
+var changeSpeaker = document.getElementById("appSpeaker");
+var changeTempo = document.getElementById("appSpeed");
+var tooltip = document.getElementById("tooltip-text");
+const target = document.getElementById("help");
 
 async function getSelectionText() {
+  document.body.style.cursor = 'wait';
   chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
 }, function(selection) {
     testText2 = document.getElementById('testelement2').innerHTML;
     document.getElementById("testelement2").innerHTML = selection[0];
     console.log("test1")
+    //testida kas funktsioonide nestides alumine probleem paraneks
 });
 }
 
 async function abcFunction(){
   await getSelectionText();
 
-/*   testText = document.getElementById('testelement').innerHTML;
-  console.log(testText) */
+  appSpeed = document.getElementById('appSpeed').value;
+  console.log(appSpeed);
 
-  testSpeed = document.getElementById('testSpeed').value;
-  console.log(testSpeed);
-
-  testSpeaker = document.getElementById('testSpeaker').value;
-  console.log(testSpeaker)
+  appSpeaker = document.getElementById('appSpeaker').value;
+  console.log(appSpeaker)
 
   console.log(testText2)
 
@@ -33,8 +36,8 @@ async function abcFunction(){
     },
     body: JSON.stringify({
       text: testText2,
-      speaker: testSpeaker,
-      speed: testSpeed})
+      speaker: appSpeaker,
+      speed: appSpeed})
   });
   
   if (!res.ok) {
@@ -43,6 +46,7 @@ async function abcFunction(){
   
   const wavFile = await res.blob();
   document.querySelector('audio').src = URL.createObjectURL(wavFile);
+  document.body.style.cursor = 'default'
 }
 
 button2.addEventListener("click", function(){
@@ -50,28 +54,44 @@ button2.addEventListener("click", function(){
   //pole just parim lahendus, ei tea miks esimene func varem lõpetab
   setTimeout(function (){
     abcFunction();
-  }, 1);
+  }, 10);
   abcFunction();
 })
 
-function myFunction2() {
+function changeLanguage() {
+  localStorage.language = "EST";
+  //hetkel ei tööta kuni localstorage korras pole
   var x = document.getElementById("lang");
   var spanText = document.getElementById("spanText");
   var button = document.getElementById("button2");
   var speaker = document.getElementById("speaker");
-  if (x.innerHTML === "🇪🇪") {
+  if (localStorage.language = "EST") {
+    localStorage.language = "ENG"
     x.innerHTML = "🇬🇧";
     spanText.innerHTML = "Selected text:";
-    button.innerHTML = "BUTTON";
+    button.innerHTML = "Paste selection";
     button.style.color = "#FFFFFF";
     speaker.innerHTML = "Speaker:"
-  } else {
+  } if (localStorage.language = "ENG") {
+    localStorage.language = "EST"
     x.innerHTML = "🇪🇪";
-    spanText.innerHTML = "Selekteeritud tekst:";
-    button.innerHTML = "NUPP";
+    spanText.innerHTML = "Valitud tekst:";
+    button.innerHTML = "Kleebi valik";
     button.style.color = "#FFFFFF";
     speaker.innerHTML = "Kõneleja:"
   }
 }
 
-langButton.addEventListener("click", myFunction2);
+// et ei peaks Main nuppu vajutama peale sätete muutmist
+langButton.addEventListener("click", changeLanguage);
+changeSpeaker.addEventListener("change", abcFunction);
+changeTempo.addEventListener("change", abcFunction);
+
+//tooltip
+target.addEventListener('mouseover', () => {
+  tooltip.style.display = 'block';
+}, false);
+
+target.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+}, false);

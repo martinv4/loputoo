@@ -1,9 +1,9 @@
 .container{
     width: 350px;
-    background-color: #FFD0FD;
+    background-color: #FFFBFE;
 }
 .innerContainer{
-    background-color: #FFFBFE;
+    background-color: #FFFFFF;
     display: grid;
     border-radius: 8px;
     padding: 8px;
@@ -15,6 +15,7 @@
     display: block;
     margin: auto;
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 .button{
     margin: auto;
@@ -55,3 +56,48 @@
     height: 32px;
     line-height: 32px;
 }
+
+.downloadLink{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.help{
+    float: right;
+    font-size: large;
+}
+
+p#tooltip-text {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 8px;
+    z-index: 1;
+    background: gray;
+    padding: 8px;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 2px;
+    animation: fadeIn 0.6s;
+}
+
+p#tooltip-text:before {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 70%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+  }
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+   }
