@@ -38,12 +38,25 @@ async function abcFunction(){
       text: testText2,
       speaker: appSpeaker,
       speed: appSpeed})
-  });
+  })
+  const res2 = await fetch('https://api.tartunlp.ai/text-to-speech/v2/verbose', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text: testText2,
+      speaker: appSpeaker,
+      speed: appSpeed})
+  }).then (res2 => res2.json());
+  
+  console.log(res);
+  console.log(res2.duration_frames);
   
   if (!res.ok) {
     throw new Error('Fetch failed!');
   }
-  
+
   const wavFile = await res.blob();
   document.querySelector('audio').src = URL.createObjectURL(wavFile);
   document.body.style.cursor = 'default'
