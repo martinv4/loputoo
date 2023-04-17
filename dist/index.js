@@ -52,6 +52,73 @@ async function abcFunction(){
   
   console.log(res);
   console.log(res2.duration_frames);
+  const frames = res2.duration_frames.slice(1, -1)
+  console.log(frames);
+  //const sum = framesClean.reduce((a,b)=>a+b);
+  //console.log(sum);
+  let out = frames
+  .join('#')                     // merge into a string
+  .split(/(?:^|#)(0)(?:#|$)/)    // split on X (but retain them)
+  .filter(Boolean)               // remove empty values
+  .map(v => v.split('#'));       // split on #
+
+console.log(out);
+
+//konverteerib subarrayd numbriteks
+function conv(out) {
+  // iterate over the array
+  return out.map(function(v) {
+    // if the element is an array call the function recursively
+    // or parse the number and treat NaN as 0
+    return Array.isArray(v) ? conv(v) : Number(v) || 0;
+  })
+}
+outNumbers = conv(out);
+
+/* var numberArray = [];
+var arrayLength = out.length;
+for (var i = 0; i < arrayLength; i++)
+numberArray.push(parseInt(out[i]));
+console.log(numberArray);  */
+
+// liidab subarrayd
+ var newOut = [];
+outNumbers.forEach(function(item) {
+  item = item.reduce(function(a, b) {
+    return a + b;
+  });
+  newOut.push([item]);
+});
+
+function removeSubArray(source, sub) {
+  let i = source.length;
+  while(i--) {
+    if (source[i].length === sub.length && sub.every((n, j) => n === source[i][j])) {
+      source.splice(i, 1);
+    }
+  }
+}
+
+const arr2 = [0];
+
+removeSubArray(newOut, arr2);
+console.log(newOut);
+
+var words = $("#testelement2").text().split(" ");
+$("#testelement2").empty();
+$.each(words, function(i, v) {
+    $("#testelement2").append($("<span class='testhighlight'>").text(v).append(" "));
+    
+});
+var i=0;
+var changeText = function(){
+  $(".testhighlight:not(.blu):first")
+      .addClass("blu");
+      i++;
+  setTimeout(changeText, newOut[i]*40);
+  console.log(newOut[i]);
+ }
+ setTimeout(changeText, newOut[i]*40);
   
   if (!res.ok) {
     throw new Error('Fetch failed!');
