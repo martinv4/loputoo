@@ -5,6 +5,8 @@ var changeSpeaker = document.getElementById("appSpeaker");
 var changeTempo = document.getElementById("appSpeed");
 var tooltip = document.getElementById("tooltip-text");
 const target = document.getElementById("help");
+var audio = document.getElementById("audio");
+window.localStorage.setItem("preferDark", "EST");
 
 async function getSelectionText() {
   document.body.style.cursor = 'wait';
@@ -110,22 +112,26 @@ $.each(words, function(i, v) {
     $("#testelement2").append($("<span class='testhighlight'>").text(v).append(" "));
     
 });
-var i=0;
-var changeText = function(){
-  $(".testhighlight:not(.blu):first")
-      .addClass("blu");
-      i++;
-  setTimeout(changeText, newOut[i]*40);
-  console.log(newOut[i]);
- }
- setTimeout(changeText, newOut[i]*40);
-  
+
   if (!res.ok) {
     throw new Error('Fetch failed!');
   }
 
   const wavFile = await res.blob();
   document.querySelector('audio').src = URL.createObjectURL(wavFile);
+  audio.onplay = function biModal(){
+    var i=0;
+    var changeText = function(){
+      $(".testhighlight:not(.blu):first")
+          .addClass("blu");
+          i++;
+      setTimeout(changeText, newOut[i]/appSpeed*12);
+      console.log(newOut[i]);
+     }
+     setTimeout(changeText, newOut[i]/appSpeed*12);
+  }
+  
+  console.log(localStorage.toggled)
   document.body.style.cursor = 'default'
 }
 
@@ -137,33 +143,46 @@ button2.addEventListener("click", function(){
   }, 10);
   abcFunction();
 })
+var x = document.getElementById("lang");
+var spanText = document.getElementById("spanText");
+var button = document.getElementById("button2");
+var speaker = document.getElementById("speaker");
 
-function changeLanguage() {
-  localStorage.language = "EST";
-  //hetkel ei tööta kuni localstorage korras pole
-  var x = document.getElementById("lang");
-  var spanText = document.getElementById("spanText");
-  var button = document.getElementById("button2");
-  var speaker = document.getElementById("speaker");
-  if (localStorage.language = "EST") {
-    localStorage.language = "ENG"
+function changeLanguageENG() {
     x.innerHTML = "🇬🇧";
     spanText.innerHTML = "Selected text:";
     button.innerHTML = "Paste selection";
     button.style.color = "#FFFFFF";
     speaker.innerHTML = "Speaker:"
-  } if (localStorage.language = "ENG") {
-    localStorage.language = "EST"
+  }
+function changeLanguageEST() {
     x.innerHTML = "🇪🇪";
     spanText.innerHTML = "Valitud tekst:";
     button.innerHTML = "Kleebi valik";
     button.style.color = "#FFFFFF";
     speaker.innerHTML = "Kõneleja:"
   }
-}
+
+  $(langButton).on('click',function(){
+
+    //localstorage values are always strings (no booleans)  
+
+    if (localStorage.toggled != "EST" ) {
+       localStorage.toggled = "EST";
+    } else {
+       localStorage.toggled = "ENG";
+    }
+    console.log(localStorage.toggled)
+ });
+ window.addEventListener("load", (event) => {
+  if (localStorage.toggled == "ENG"){
+    changeLanguageENG();
+  }
+});
 
 // et ei peaks Main nuppu vajutama peale sätete muutmist
-langButton.addEventListener("click", changeLanguage);
+// ENABLE THIS
+//langButton.addEventListener("click", changeLanguage);
 changeSpeaker.addEventListener("change", abcFunction);
 changeTempo.addEventListener("change", abcFunction);
 
