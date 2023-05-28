@@ -1,0 +1,17 @@
+{ "manifest_version": 3,  
+  "version": "0.1.0", 
+  "permissions": ["activeTab", "storage", "scripting"],
+
+    "name": "Bimodaalne rakendus",
+    "action": {
+      "default_icon": {
+        "16": "headphonesicon.png",
+        "24": "headphonesicon.png",
+        "32": "headphonesicon.png"
+      },
+      "default_title": "Bimodaalne rakendus",
+      "default_popup": "index.html"
+    },
+  "web_accessible_resources": [{"resources":[ "*.wav" ],"matches": ["<all_urls>"]}],
+  "content_security_policy": {"extension_pages":"script-src 'self'; object-src 'self'"}
+}
